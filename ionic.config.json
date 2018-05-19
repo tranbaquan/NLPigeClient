@@ -1,0 +1,8 @@
+{
+  "name": "nlpige",
+  "app_id": "49b4fba1",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}
