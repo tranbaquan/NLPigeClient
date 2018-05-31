@@ -14,3 +14,44 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+// ion-input {
+//     border: 2px solid rgb(18, 152, 161);
+//     border-radius: 25px;
+//     margin: 1px 0px;
+// }
+
+.item-md.item-block .item-inner,
+.item-md.item-input.input-has-focus .item-inner,
+.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+.list-md .item-input.input-has-focus:last-child,
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+    // border-bottom: none;
+    border-bottom-color: rgb(15, 115, 122);
+    box-shadow: none;
+}
+.list-md .item-input.input-has-focus:last-child .item-inner,
+.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+    box-shadow: none; 
+}
+.m-auto {
+    margin: auto;
+}
+
+.app-color{
+    color: rgb(15, 115, 122) !important;
+}
+.checkbox-md .checkbox-checked {
+  background: rgb(15, 115, 122);    /* use your color hex instead of #333 */
+  border-color: rgb(15, 115, 122);
+}
+.text-small {
+    font-size: 0.8em;
+}
+
+.no-border-b{
+    border-bottom: none !important;
+}

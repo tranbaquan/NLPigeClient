@@ -1,0 +1,31 @@
+page-login {
+    .logo {
+        display: block;
+        background: no-repeat scroll 0 0 transparent;
+        object-fit: scale-down;
+        width: 100px;
+        height: 80px;
+    }
+
+
+    .segment-md-dark .segment-button.activated, .segment-md-dark .segment-button.segment-activated {
+        border-color: rgb(19, 152, 161);
+        color: rgb(15, 115, 122);
+        opacity: 1;
+    }
+    .segment-md-dark .segment-button {
+        color: #222;
+    }
+    .item-input .label-md,
+    .item-select .label-md,
+    .item-datetime .label-md {
+        color: rgb(15, 115, 122);
+    }
+    .button-md-dark {
+        color: #fff;
+        background-color: rgb(19, 152, 161);
+    }
+    .button-md-dark:hover:not(.disable-hover) {
+        background-color: #00bcd4;   
+      }
+}
