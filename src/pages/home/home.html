@@ -12,13 +12,13 @@
 <ion-content padding-top class="background">
   <ion-list>
     <!-->*ngFor="let friend of friends" -->
-    <ion-item-sliding #sliding>
+    <ion-item-sliding #sliding *ngFor="let friend of friends">
       <ion-item (click)="goToChatRoom(friend)">
         <ion-avatar item-start>
-          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
+          <ion-img width="50" height="50" src="..."></ion-img>
         </ion-avatar>
         <h2>
-          Dinh Chi Thien
+          {{friend.name}}
         </h2>
       </ion-item>
 
@@ -29,42 +29,7 @@
       </ion-item-options>
     </ion-item-sliding>
 
-
-
-    <ion-item-sliding #sliding>
-      <ion-item (click)="goToChatRoom(friend)">
-        <ion-avatar item-start>
-          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
-        </ion-avatar>
-        <h2>
-          Tran Thanh Hai
-        </h2>
-      </ion-item>
-
-      <ion-item-options side="right">
-        <button ion-button (click)="goToProfileFriend(friend)">
-          <ion-icon name="person"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-
-
-
-    <ion-item-sliding #sliding>
-      <ion-item (click)="goToChatRoom(friend)">
-        <ion-avatar item-start>
-          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
-        </ion-avatar>
-        <h2>
-          Tran Ba Quan
-        </h2>
-      </ion-item>
-
-      <ion-item-options side="right">
-        <button ion-button (click)="goToProfileFriend(friend)">
-          <ion-icon name="person"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
   </ion-list>
+  <button ion-button (click)="addFriend()">ADD Friend
+  </button>
 </ion-content>

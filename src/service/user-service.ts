@@ -22,7 +22,20 @@ export class UserService {
             password: password
           })
           return this.http.post(Link.HOST + Link.CREATE_USER, data, options).toPromise();
-    }
+        }
+        
+        public login(email: string, password: string){
+            let headers = new Headers({ 
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            });
+          let options = new RequestOptions({ headers: headers});
+          let data = JSON.stringify({
+              email: email,
+              password: password
+            })
+            return this.http.post(Link.HOST + Link.LOGIN, data, options).toPromise();
+        }
 
     public findEmail(email: string) {
         let headers = new Headers({ 

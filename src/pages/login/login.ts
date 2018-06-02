@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
-import { OneSignal } from '@ionic-native/onesignal';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import 'rxjs/Observable';
 import { LoadingController, Loading } from 'ionic-angular';
@@ -28,7 +27,6 @@ export class LoginPage {
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
-    private oneSignal: OneSignal,
     private userService: UserService,
     private loaddingControl: LoadingController,
     private alertControl: AlertController,
@@ -57,34 +55,34 @@ export class LoginPage {
     }, {
         validator: PasswordValidation.MatchPassword
       });
+  }
 
+  ionViewWillEnter() {
     let load: Loading = this.loaddingControl.create({
       content: 'Processing..',
       spinner: 'ios'
     });
     load.present();
     this.storage.ready().then(() => {
+      this.storage.get('user').then(data => {
+        if (data != null) {
+          load.dismissAll();
+          this.navCtrl.push(TabsPage);
+        }
+      })
+        .catch(error => {
+          load.dismissAll();
+        });
       load.dismissAll();
-    });
+    })
+      .catch((error) => {
+        console.log(error);
+        load.dismissAll();
+      }
+      );
+    load.dismissAll();
   }
 
-  // ionViewDidLoad() {
-  //   this.oneSignal.startInit('a35e55c5-bfa6-4883-beb8-2aa85c1b530f', '944483627331');
-
-  //   this.oneSignal.inFocusDisplaying(this.oneSignal.OSInFocusDisplayOption.InAppAlert);
-
-  //   this.oneSignal.handleNotificationReceived().subscribe(() => {
-  //     // do something when notification is received
-  //     console.log("do something when notification is received");
-  //   });
-
-  //   this.oneSignal.handleNotificationOpened().subscribe(() => {
-  //     // do something when a notification is opened
-  //     console.log("do something when a notification is opened");
-  //   });
-
-  //   this.oneSignal.endInit();
-  // }
 
 
   public doSignup() {
@@ -98,7 +96,9 @@ export class LoginPage {
         load.dismissAll();
         switch (response.status) {
           case ResponseCode.CREATED: {
-            this.storage.set('user', response.json());
+            this.storage.clear().then(() => {
+              this.storage.set('user', response.json());
+            });
             let alert = this.alertControl.create(
               {
                 title: 'Signup Success!',
@@ -106,7 +106,7 @@ export class LoginPage {
               }
             );
             alert.present();
-            this.navCtrl.push(HomePage);
+            this.navCtrl.push(TabsPage);
             break;
           }
           case ResponseCode.CONFLICT: {
@@ -156,7 +156,44 @@ export class LoginPage {
       });
   }
 
-  public doLogin(){
-    this.navCtrl.push(TabsPage);
+  public doLogin() {
+    let load: Loading = this.loaddingControl.create({
+      content: 'Processing..',
+      spinner: 'ios'
+    });
+    load.present();
+    this.userService.login(this.signinUser.email, this.signinUser.password)
+      .then((response) => {
+        load.dismissAll();
+        switch (response.status) {
+          case ResponseCode.OK: {
+            this.storage.set('user', response.json());
+            this.navCtrl.push(TabsPage);
+            break;
+          }
+          case ResponseCode.NOT_ACCEPTABLE: {
+            let alert = this.alertControl.create(
+              {
+                title: 'Signin Failed!',
+                subTitle: 'Email or password is invalid',
+                buttons: ['OK']
+              }
+            );
+            alert.present();
+            break;
+          }
+        }
+      })
+      .catch(err => {
+        load.dismissAll();
+        let alert = this.alertControl.create(
+          {
+            title: 'Signup Failed!',
+            subTitle: 'Please check your network',
+            buttons: ['OK']
+          }
+        );
+        alert.present();
+      });
   }
 }

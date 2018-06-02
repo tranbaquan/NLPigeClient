@@ -4,8 +4,10 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
 import { HttpModule } from '@angular/http';
-import { OneSignal } from '@ionic-native/onesignal';
 import { IonicStorageModule } from '@ionic/storage';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule, AngularFireDatabase } from 'angularfire2/database';
+
 
 import { UserService } from '../service/user-service';
 import { MyApp } from './app.component';
@@ -15,6 +17,15 @@ import { ChatPage } from '../pages/chat/chat';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ContactPage } from '../pages/contact/contact';
 import { ProfilePage } from '../pages/profile/profile';
+
+var config = {
+  apiKey: "AIzaSyDJPhTGNLMZtc0BgJX-kJI5iuGLkoMIaa0",
+  authDomain: "nlpige-f047c.firebaseapp.com",
+  databaseURL: "https://nlpige-f047c.firebaseio.com",
+  projectId: "nlpige-f047c",
+  storageBucket: "nlpige-f047c.appspot.com",
+  messagingSenderId: "944483627331"
+};
 
 @NgModule({
   declarations: [
@@ -35,7 +46,10 @@ import { ProfilePage } from '../pages/profile/profile';
         name: 'egipln',
         driverOrder: ['indexeddb', 'sqlite', 'websql']
       }
-    )
+    ),
+    AngularFireDatabaseModule,
+    AngularFireModule,
+    AngularFireModule.initializeApp(config)
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -51,7 +65,7 @@ import { ProfilePage } from '../pages/profile/profile';
     StatusBar,
     SplashScreen,
     UserService,
-    OneSignal,
+    AngularFireDatabase,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })

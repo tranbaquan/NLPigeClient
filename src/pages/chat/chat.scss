@@ -1,3 +1,95 @@
 page-chat {
+    .letsstart {
+        background: linear-gradient(to bottom, #ebfcff 0%, #b5dfe4 100%) !important ;
+        // background: url('../../assets/imgs/logo.png');
+        // background-repeat: no-repeat;
+        // background-size: contain;
+    } 
+
+    /*
+     * set header
+     */
+    .scroll-content {
+        text-align: center;
+    }
+    .toolbar-background-md,
+    .toolbar-background-ios {
+        border: none;
+        background-color: transparent;
+    }
+    ion-header {
+        padding-left: 5%;
+        padding-right: 5%;
+        text-align: center;
+    }
+    .toolbar-avatar {
+        padding-left: 85px;
+    }
+    ion-avatar {
+        img {
+            border-radius: 50%;
+        }
+    }
+
+    /*
+     * set chat-box
+     */
+    .message-wrap {
+        padding-top: 17px;
+        padding-right: 0px;
+        padding-left: 0px;
+        padding-bottom: 5px;
+        background-color: transparent;
+        ion-grid {
+            ion-row {
+                ion-col {
+                    ion-avatar {
+                        padding-top: 2px;
+                        img {
+                            margin-left: 4px;
+                        }
+                    }
+                    p {
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        padding-left: 13px;
+                        padding-right: 13px;
+                        border-radius: 17px;
+                        margin: 0;
+                    }
+                    .friend-msg {
+                        border: 0.5px solid #00bcd4;
+                        text-align: left;
+                    }
+                    .my-msg {
+                        background-color: #007281;
+                        color: #f5f5f5;
+                        text-align: left;
+                    }
+                }
+            }
+        }
+    }
+
+   
+
+    /*
+     * set footer
+     */ 
+    .toolbar-footer {
+        ion-textarea {
+            margin-top: 0px;
+            text-align: center;
+        }
+    }
+
+    .text-input-md {
+        margin: 3px 5px 3px 5px;
+        padding: 10px 0 10px 7px;
+        width: calc(100% - 5px - 5px);
+        border: 0.5px solid #007281;
+        border-radius: 17px;
+    }
+      
 
 }

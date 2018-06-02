@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "944483627331",
+    "firebase_url": "https://nlpige-f047c.firebaseio.com",
+    "project_id": "nlpige-f047c",
+    "storage_bucket": "nlpige-f047c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:944483627331:android:d998326d51209c92",
+        "android_client_info": {
+          "package_name": "edu.hcmuaf.nlpige"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "944483627331-dp8p4oq40kue59pvh55i7kah9i94ef4d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.hcmuaf.nlpige",
+            "certificate_hash": "8e61471622bdf806284551e66a88bbe446819e2b"
+          }
+        },
+        {
+          "client_id": "944483627331-lt2b2cd4gjh6tavcangnskelbatei5nc.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "944483627331-lt2b2cd4gjh6tavcangnskelbatei5nc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCProZOQ1c1O35SjGQ1vHWyKR_guESabh0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "944483627331-lt2b2cd4gjh6tavcangnskelbatei5nc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
