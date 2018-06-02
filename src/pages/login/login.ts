@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { OneSignal } from '@ionic-native/onesignal';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import 'rxjs/Observable';
+import { LoadingController, Loading } from 'ionic-angular';
+import { AlertController, Alert } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
+
 import { UserService } from '../../service/user-service';
-
 import { User } from '../../model/user';
-import { RegisterPage } from '../../pages/register/register';
-
-/**
- * Generated class for the LoginPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { HomePage } from '../../pages/home/home';
+import { TabsPage } from '../../pages/tabs/tabs';
+import { ResponseCode } from '../../secret/response-code';
+import { PasswordValidation } from '../../service/validation';
 
 @Component({
   selector: 'page-login',
@@ -29,29 +29,43 @@ export class LoginPage {
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     private oneSignal: OneSignal,
-    private userService: UserService
+    private userService: UserService,
+    private loaddingControl: LoadingController,
+    private alertControl: AlertController,
+    private storage: Storage
   ) {
-      this.opt = "signin";
-      this.signinUser = {
-        email: '',
-        password: ''
-      };
-      this.signupUser = {
-        email: '',
-        password: '',
-        repassword: '',
-        checked: false
-      };
-      this.signinForm = formBuilder.group({
-        signinEmail : ['', Validators.compose([Validators.required, Validators.email])],
-        signinPassword : ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    this.opt = "signin";
+    this.signinUser = {
+      email: '',
+      password: ''
+    };
+    this.signupUser = {
+      email: '',
+      password: '',
+      repassword: '',
+      checked: false
+    };
+    this.signinForm = formBuilder.group({
+      signinEmail: ['', Validators.compose([Validators.required, Validators.email])],
+      signinPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])]
+    });
+    this.signupForm = formBuilder.group({
+      signupEmail: ['', Validators.compose([Validators.required, Validators.email])],
+      signupPassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      signupRepassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
+      signupChecked: ['', Validators.compose([Validators.requiredTrue])]
+    }, {
+        validator: PasswordValidation.MatchPassword
       });
-      this.signupForm = formBuilder.group({
-        signupEmail : ['', Validators.compose([Validators.required, Validators.email])],
-        signupPassword : ['', Validators.compose([Validators.required])],
-        signupRepassword : ['', Validators.compose([Validators.required])],
-        signupChecked : ['', Validators.compose([Validators.requiredTrue])]
-      });
+
+    let load: Loading = this.loaddingControl.create({
+      content: 'Processing..',
+      spinner: 'ios'
+    });
+    load.present();
+    this.storage.ready().then(() => {
+      load.dismissAll();
+    });
   }
 
   // ionViewDidLoad() {
@@ -63,7 +77,7 @@ export class LoginPage {
   //     // do something when notification is received
   //     console.log("do something when notification is received");
   //   });
-    
+
   //   this.oneSignal.handleNotificationOpened().subscribe(() => {
   //     // do something when a notification is opened
   //     console.log("do something when a notification is opened");
@@ -72,17 +86,77 @@ export class LoginPage {
   //   this.oneSignal.endInit();
   // }
 
-  public login() {
-  }
 
   public doSignup() {
-    this.userService.createUser(this.signupUser.email, this.signupUser.password)
-    .then(response =>{
-      console.log(response.json());
-    })
-    .catch(error => {
-      console.log(error);
+    let load: Loading = this.loaddingControl.create({
+      content: 'Processing..',
+      spinner: 'ios'
     });
+    load.present();
+    this.userService.createUser(this.signupUser.email, this.signupUser.password)
+      .then(response => {
+        load.dismissAll();
+        switch (response.status) {
+          case ResponseCode.CREATED: {
+            this.storage.set('user', response.json());
+            let alert = this.alertControl.create(
+              {
+                title: 'Signup Success!',
+                buttons: ['OK']
+              }
+            );
+            alert.present();
+            this.navCtrl.push(HomePage);
+            break;
+          }
+          case ResponseCode.CONFLICT: {
+            let alert = this.alertControl.create(
+              {
+                title: 'Signup Failed!',
+                subTitle: 'Email has existed.',
+                buttons: ['OK']
+              }
+            );
+            alert.present();
+            break;
+          }
+          case ResponseCode.NOT_ACCEPTABLE: {
+            let alert = this.alertControl.create(
+              {
+                title: 'Signup Failed!',
+                subTitle: 'Invalid email.',
+                buttons: ['OK']
+              }
+            );
+            alert.present();
+            break;
+          }
+          case ResponseCode.UNAUTHORIZED: {
+            let alert = this.alertControl.create(
+              {
+                title: 'Signup Failed!',
+                subTitle: 'Sorry! Server has been broken! Please signup again.',
+                buttons: ['OK']
+              }
+            );
+            alert.present();
+            break;
+          }
+        }
+      })
+      .catch(error => {
+        let alert = this.alertControl.create(
+          {
+            title: 'Signup Failed!',
+            subTitle: 'Please check your network',
+            buttons: ['OK']
+          }
+        );
+        alert.present();
+      });
   }
 
+  public doLogin(){
+    this.navCtrl.push(TabsPage);
+  }
 }

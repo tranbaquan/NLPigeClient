@@ -1,20 +1,4 @@
-page-home {
-    .item-md.item-block .item-inner,
-.item-md.item-input.input-has-focus .item-inner,
-.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
-.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
-.list-md .item-input.input-has-focus:last-child,
-.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
-.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
-    border-bottom: none;
-    // border-bottom-color: rgb(15, 115, 122);
-    box-shadow: none;
-}
-.list-md .item-input.input-has-focus:last-child .item-inner,
-.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
-.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
-    box-shadow: none; 
-}
+page-contact {
     ion-header {
         // background-color: #000;
         ion-navbar {
@@ -44,17 +28,13 @@ page-home {
             }
         }
     }
-    
 
     .background {
-        background-color: rgba($color: #fff, $alpha: 1);
+        background-color: #fff;
         ion-list {
             text-align: center;
             ion-item-sliding {
-                width: 95%;
-                box-shadow: 1px 1px 5px rgba($color: #00bcd4, $alpha: 1);
-                margin: 10px auto 0;
-                border-radius: 16px;
+                width: 100%;
                 ion-item {
                     ion-avatar {
                         ion-img {
@@ -64,21 +44,20 @@ page-home {
                     .list-md .item-block .item-inner {
                         border-bottom: none;
                     }
-                    h2 {
-                        // color: #4caf50;
-                        // color: #2ed484;
-                        color: rgb(18, 152, 161);
+                    h4 {
+                        // color: rgb(18, 152, 161);
+                        color: #999;
                         font-weight: 400;
                     }
                 }
-
-
                 ion-item-options {
-                    
                     .button-md,
                     .button-ios {
                         width: 70px;
                         background-color: #00bcd4;
+                        border-bottom-right-radius: 50%;
+                        border-top-right-radius: 50%;
+
                     }
                 }
             }
@@ -86,5 +65,5 @@ page-home {
     }
     .list-md ion-item-options {
         border-bottom: 1px solid #dedede;
-      }
+    }
 }

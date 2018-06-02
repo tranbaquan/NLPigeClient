@@ -1,0 +1,82 @@
+page-profile {
+    ion-header {
+        // background-color: #000;
+        padding: 0;
+        margin: 0;
+        ion-navbar {
+            .toolbar-background-ios,
+            .toolbar-background-md {
+                border-bottom-style: none;
+                background-color: #00bcd4;
+                // background-color: #22c0cf ; -- DARK MODE
+            }
+    
+            text-align: center;
+            ion-buttons {
+                .bar-button-solid-md,
+                .bar-button-solid-ios {
+                    background-color: #00bcd4;
+                    font-size: 1.5rem;
+                }
+            }
+        }
+    }
+    
+        ion-content {
+            text-align: center;
+            margin: -5px 0 0 0;
+            .wrapper {
+                background-color: #00bcd4;
+                width: 100%;
+                margin: 0;
+                padding-top: 25px;
+                padding-bottom:15px;
+                .profile {
+                    width: 65vw;
+                    margin: 15px auto;
+                    .avatar {
+                        button {
+                            border-radius: 50%;
+                        }
+                    }
+                    .infor {
+                        h1 {
+                            font-size: 2rem;
+                            color: #f5feff;
+                            font-weight: 500;
+                        }
+                        h4 {
+                            font-size: 1.5rem;
+                            color: #bcf9ff;
+                            font-weight: 300;
+                        }
+                    }
+                }
+            }
+    
+            /*
+            ------ Information ------
+            */
+            ion-list {
+                ion-item {
+                    ion-icon {
+                        font-size: 3rem;
+                        color: #999;
+                    }
+                    h5 {
+                        text-align: right;
+                        color: #999;
+                    }
+                    ion-label {
+                        color: #999;
+                    }
+                    ion-select {
+                        color: #999;
+                    }
+                }        
+            }
+    
+    
+    
+        }
+}

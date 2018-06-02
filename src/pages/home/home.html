@@ -1,14 +1,70 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
+  <ion-navbar class="nav">
+    <ion-title>My Friends</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only solid>
+        <ion-icon name="ios-create-outline"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+<ion-content padding-top class="background">
+  <ion-list>
+    <!-->*ngFor="let friend of friends" -->
+    <ion-item-sliding #sliding>
+      <ion-item (click)="goToChatRoom(friend)">
+        <ion-avatar item-start>
+          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
+        </ion-avatar>
+        <h2>
+          Dinh Chi Thien
+        </h2>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="goToProfileFriend(friend)">
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+    <ion-item-sliding #sliding>
+      <ion-item (click)="goToChatRoom(friend)">
+        <ion-avatar item-start>
+          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
+        </ion-avatar>
+        <h2>
+          Tran Thanh Hai
+        </h2>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="goToProfileFriend(friend)">
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+
+
+
+    <ion-item-sliding #sliding>
+      <ion-item (click)="goToChatRoom(friend)">
+        <ion-avatar item-start>
+          <ion-img width="50" height="50" src="abc.jpg"></ion-img>
+        </ion-avatar>
+        <h2>
+          Tran Ba Quan
+        </h2>
+      </ion-item>
+
+      <ion-item-options side="right">
+        <button ion-button (click)="goToProfileFriend(friend)">
+          <ion-icon name="person"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 </ion-content>
