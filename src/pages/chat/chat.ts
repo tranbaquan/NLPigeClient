@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ChatPage page.
@@ -13,12 +15,39 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'chat.html',
 })
 export class ChatPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  messages: any;
+  user: any;
+  friend: any;
+  input:string;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private firebaseDb: AngularFireDatabase,
+    private storage: Storage
+  ) {
+    this.friend = this.navParams.get('friend');
+    this.storage.get('user').then(data => {
+      this.user = data;
+      this.getMessage();
+    })
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ChatPage');
+  getMessage() {
+    this.firebaseDb.list('/messages/groups/' + this.user.idUser + '/' + this.friend.idUser)
+    .valueChanges()
+    .subscribe(data => {
+      this.messages = data;
+    })
   }
-
+  sendMessage(){
+    this.firebaseDb.list('/messages/groups/' + this.user.idUser + '/' + this.friend.idUser).push({
+      idUser: this.user.idUser,
+      message: this.input
+    });
+    this.firebaseDb.list('/messages/groups/' + this.friend.idUser + '/' + this.user.idUser).push({
+      idUser: this.user.idUser,
+      message: this.input
+    });
+    this.input = '';
+  }
 }

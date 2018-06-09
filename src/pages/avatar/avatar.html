@@ -1,0 +1,10 @@
+<ion-content padding>
+  <div class="wrapper">
+    <img class="m-auto" width="120" height="120" [src]="avatar">
+  </div>
+  <ng-container *ngIf="progress | async as percent">
+    <progress [value]="percent" max="100"></progress>
+  </ng-container>
+  <button ion-button (click)="presentActionSheet()">Add avatar</button>
+  <button ion-button (click)="complete()">Finish</button>
+</ion-content>

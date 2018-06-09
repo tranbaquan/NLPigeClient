@@ -1,27 +1,4 @@
-page-profile {
-    ion-header {
-        // background-color: #000;
-        padding: 0;
-        margin: 0;
-        ion-navbar {
-            .toolbar-background-ios,
-            .toolbar-background-md {
-                border-bottom-style: none;
-                background-color: #00bcd4;
-                // background-color: #22c0cf ; -- DARK MODE
-            }
-    
-            text-align: center;
-            ion-buttons {
-                .bar-button-solid-md,
-                .bar-button-solid-ios {
-                    background-color: #00bcd4;
-                    font-size: 1.5rem;
-                }
-            }
-        }
-    }
-    
+page-infor {
         ion-content {
             text-align: center;
             margin: -5px 0 0 0;
@@ -35,7 +12,7 @@ page-profile {
                     width: 65vw;
                     margin: 15px auto;
                     .avatar {
-                        img {
+                        button {
                             border-radius: 50%;
                         }
                     }
@@ -80,4 +57,18 @@ page-profile {
             }
     
         }
+    .logo {
+        display: block;
+        background: no-repeat scroll 0 0 transparent;
+        object-fit: scale-down;
+        width: 100px;
+        height: 80px;
+        }
+    ion-label[fixed] {
+        flex: 0 0 60px;
+        width: 60px;
+        min-width: 60px;
+        max-width: 150px;
+    }
+
 }

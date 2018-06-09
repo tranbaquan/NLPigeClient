@@ -3,15 +3,14 @@ import { NavController, NavParams } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import 'rxjs/Observable';
 import { LoadingController, Loading } from 'ionic-angular';
-import { AlertController, Alert } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { UserService } from '../../service/user-service';
 import { User } from '../../model/user';
-import { HomePage } from '../../pages/home/home';
 import { TabsPage } from '../../pages/tabs/tabs';
 import { ResponseCode } from '../../secret/response-code';
 import { PasswordValidation } from '../../service/validation';
+import { InforPage } from '../infor/infor';
 
 @Component({
   selector: 'page-login',
@@ -19,18 +18,20 @@ import { PasswordValidation } from '../../service/validation';
 })
 export class LoginPage {
   private opt: string;
+  private signinMessage: string;
+  private signupMessage: string;
   private signinUser: any;
   private signupUser: any;
-  private signupForm: FormGroup;
   private signinForm: FormGroup;
+  private signupForm: FormGroup;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     public formBuilder: FormBuilder,
     private userService: UserService,
     private loaddingControl: LoadingController,
-    private alertControl: AlertController,
-    private storage: Storage
+    private storage: Storage,
+    public validate: PasswordValidation
   ) {
     this.opt = "signin";
     this.signinUser = {
@@ -53,34 +54,16 @@ export class LoginPage {
       signupRepassword: ['', Validators.compose([Validators.required, Validators.minLength(6)])],
       signupChecked: ['', Validators.compose([Validators.requiredTrue])]
     }, {
-        validator: PasswordValidation.MatchPassword
+        validator: validate.matchPassword
       });
   }
 
   ionViewWillEnter() {
-    let load: Loading = this.loaddingControl.create({
-      content: 'Processing..',
-      spinner: 'ios'
-    });
-    load.present();
-    this.storage.ready().then(() => {
-      this.storage.get('user').then(data => {
-        if (data != null) {
-          load.dismissAll();
-          this.navCtrl.push(TabsPage);
-        }
-      })
-        .catch(error => {
-          load.dismissAll();
-        });
-      load.dismissAll();
-    })
-      .catch((error) => {
-        console.log(error);
-        load.dismissAll();
+    this.storage.get('user').then(data => {
+      if (data != null) {
+        this.navCtrl.setRoot(TabsPage);
       }
-      );
-    load.dismissAll();
+    });
   }
 
 
@@ -96,63 +79,37 @@ export class LoginPage {
         load.dismissAll();
         switch (response.status) {
           case ResponseCode.CREATED: {
-            this.storage.clear().then(() => {
-              this.storage.set('user', response.json());
+            this.storage.set('user', response.json()).then(() => {
+              this.navCtrl.setRoot(InforPage);
             });
-            let alert = this.alertControl.create(
-              {
-                title: 'Signup Success!',
-                buttons: ['OK']
-              }
-            );
-            alert.present();
-            this.navCtrl.push(TabsPage);
-            break;
-          }
-          case ResponseCode.CONFLICT: {
-            let alert = this.alertControl.create(
-              {
-                title: 'Signup Failed!',
-                subTitle: 'Email has existed.',
-                buttons: ['OK']
-              }
-            );
-            alert.present();
-            break;
-          }
-          case ResponseCode.NOT_ACCEPTABLE: {
-            let alert = this.alertControl.create(
-              {
-                title: 'Signup Failed!',
-                subTitle: 'Invalid email.',
-                buttons: ['OK']
-              }
-            );
-            alert.present();
-            break;
-          }
-          case ResponseCode.UNAUTHORIZED: {
-            let alert = this.alertControl.create(
-              {
-                title: 'Signup Failed!',
-                subTitle: 'Sorry! Server has been broken! Please signup again.',
-                buttons: ['OK']
-              }
-            );
-            alert.present();
             break;
           }
         }
       })
       .catch(error => {
-        let alert = this.alertControl.create(
-          {
-            title: 'Signup Failed!',
-            subTitle: 'Please check your network',
-            buttons: ['OK']
+        load.dismissAll();
+        switch (error.status) {
+          case ResponseCode.CONFLICT: {
+            this.signupMessage = 'Email has existed!';
+            break;
           }
-        );
-        alert.present();
+          case ResponseCode.NOT_ACCEPTABLE: {
+            this.signupMessage = 'Invalid email!';
+            break;
+          }
+          case ResponseCode.NOT_FOUND: {
+            this.signupMessage = 'Invalid password!';
+            break;
+          }
+          case ResponseCode.UNAUTHORIZED: {
+            this.signupMessage = 'Sorry! Server has been broken! Please signup again!';
+            break;
+          }
+          default: {
+            this.signinMessage = 'Please check your network!';
+            break;
+          }
+        }
       });
   }
 
@@ -171,29 +128,20 @@ export class LoginPage {
             this.navCtrl.push(TabsPage);
             break;
           }
-          case ResponseCode.NOT_ACCEPTABLE: {
-            let alert = this.alertControl.create(
-              {
-                title: 'Signin Failed!',
-                subTitle: 'Email or password is invalid',
-                buttons: ['OK']
-              }
-            );
-            alert.present();
-            break;
-          }
         }
       })
       .catch(err => {
         load.dismissAll();
-        let alert = this.alertControl.create(
-          {
-            title: 'Signup Failed!',
-            subTitle: 'Please check your network',
-            buttons: ['OK']
+        switch (err.status) {
+          case ResponseCode.NOT_ACCEPTABLE: {
+            this.signinMessage = 'Email or password is invalid!';
+            break;
           }
-        );
-        alert.present();
+          default: {
+            this.signinMessage = 'Please check your network!';
+            break;
+          }
+        }
       });
   }
 }

@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { UserService } from '../../service/user-service';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { Storage } from '@ionic/storage';
 
 /**
  * Generated class for the ContactPage page.
@@ -13,12 +16,30 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'contact.html',
 })
 export class ContactPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  items: any;
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    public userService: UserService,
+    private storage: Storage,
+    private firebaseDb: AngularFireDatabase
+  ) {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad ContactPage');
+  getItems(event: any) {
+    const val = event.target.value;
+    this.userService.findFriend(val).then(response => {
+      this.items = response.json();
+    });
   }
-
+  requestFriend(item) {
+    this.storage.get('user').then(data => {
+      this.firebaseDb.list('/friends/' + data.idUser).push({
+        id: item.idUser
+      });
+      this.firebaseDb.list('/friends/' + item.idUser).push({
+        id: data.idUser
+      });
+    });
+  }
 }

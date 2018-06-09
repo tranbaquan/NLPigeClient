@@ -1,520 +1,95 @@
 <ion-header no-border>
-  <ion-toolbar class="toolbar">
-      <ion-buttons left>
-          <button (click)="doReturn()" ion-button icon-only>
-              <ion-icon name="ios-return-left"></ion-icon>
-          </button>
-      </ion-buttons>
+    <ion-toolbar class="toolbar">
+        <ion-buttons left>
+            <button (click)="doReturn()" ion-button icon-only>
+                <ion-icon name="ios-return-left"></ion-icon>
+            </button>
+        </ion-buttons>
 
-      <div class="toolbar-avatar">
-          <ion-avatar>
-              <img width="45" height="45" src="../../assets/imgs/bill.jpg">
-          </ion-avatar>
-      </div>
+        <div class="toolbar-avatar">
+            <ion-avatar>
+                <img width="45" height="45" [src]="friend.userInformation.avatar">
+            </ion-avatar>
+        </div>
 
-      <ion-buttons right>
-          <button (click)="goToProfile()" ion-button icon-only>
-              <ion-icon name="ios-person"></ion-icon>
-          </button>  
-      </ion-buttons>
+        <ion-buttons right>
+            <button (click)="goToProfile()" ion-button icon-only>
+                <ion-icon name="ios-person"></ion-icon>
+            </button>
+        </ion-buttons>
 
-  </ion-toolbar>
+    </ion-toolbar>
 </ion-header>
 <ion-content class="letsstart" *ngIf="!isLoading">
 
 
-  <div class="message-wrap">
+    <div class="message-wrap">
 
-      <!-- *ngFor="let msg of messages" -->
-      <!-- Into class=messages -->
-      <div class="messages">
-          <!-- *ngIf="msg.from == friend.username && msg.to == 'me'" -->
-          <!-- Into class=msgOfFriend -->
-          <div class="msgOfFriend">
-              <ion-grid>
-                  <ion-row align-items-center>
-                      <ion-col col-2 text-left>
-                          <ion-avatar>
-                              <!-- [src]= -->
-                              <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                          </ion-avatar>
-                      </ion-col>
-                      <ion-col col-8>
-                          <!-- {{msg.content}} -->
-                          <p class="friend-msg">This is message from your friend...!
-                          </p>
-                      </ion-col>
-                  </ion-row>
-              </ion-grid>
-          </div>
+        <!-- *ngFor="let msg of messages" -->
+        <!-- Into class=messages -->
+        <div class="messages" *ngFor="let msg of messages">
+            <!-- *ngIf="msg.from == friend.username && msg.to == 'me'" -->
+            <!-- Into class=msgOfFriend -->
+            <div class="msgOfFriend" *ngIf="msg.idUser == friend.idUser">
+                <ion-grid>
+                    <ion-row align-items-center>
+                        <ion-col col-2 text-left>
+                            <ion-avatar>
+                                <!-- [src]= -->
+                                <img width="35" height="35" class="friend-avatar" [src]="friend.userInformation.avatar">
+                            </ion-avatar>
+                        </ion-col>
+                        <ion-col col-8>
+                            <p class="friend-msg">
+                                {{msg.message}}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
 
-          <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-          <!-- Into class=msgOfMe -->
-          <div class="msgOfMe">
-              <ion-grid>
-                  <ion-row align-items-center justify-content-end>
-                      <ion-col col-8 text-right>
-                          <!-- {{msg.content}} -->
-                          <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                      </ion-col>
-                      <!-- <ion-col col-2>
-                          <ion-avatar>
-                              <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                          </ion-avatar>
-                      </ion-col> -->
-                  </ion-row>
-              </ion-grid>
-          </div>
+            <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
+            <!-- Into class=msgOfMe -->
+            <div class="msgOfMe" *ngIf="msg.idUser == user.idUser">
+                <ion-grid>
+                    <ion-row align-items-center justify-content-end>
+                        <ion-col col-8 text-right>
+                            <!-- {{msg.content}} -->
+                            <p class="my-msg">
+                                {{msg.message}}
+                            </p>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </div>
 
+        </div>
 
-
-
-
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-          <!-- ADD TO TEST SCROLL -->
-
-
-
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-          <div class="msgOfFriend">
-                  <ion-grid>
-                      <ion-row align-items-center>
-                          <ion-col col-2 text-left>
-                              <ion-avatar>
-                                  <!-- [src]= -->
-                                  <img width="35" height="35" class="friend-avatar" src="../../assets/imgs/bill.jpg">
-                              </ion-avatar>
-                          </ion-col>
-                          <ion-col col-8>
-                              <!-- {{msg.content}} -->
-                              <p class="friend-msg">This is message from your friend...!
-                              </p>
-                          </ion-col>
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- *ngIf="msg.from == 'me' && msg.to == friend.username" -->
-              <!-- Into class=msgOfMe -->
-              <div class="msgOfMe">
-                  <ion-grid>
-                      <ion-row align-items-center justify-content-end>
-                          <ion-col col-8 text-right>
-                              <!-- {{msg.content}} -->
-                              <p class="my-msg">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean elementum magna at pellentesque rhoncus                            </p>
-                          </ion-col>
-                          <!-- <ion-col col-2>
-                              <ion-avatar>
-  
-                                  <img width="35" height="35" class="my-avatar" src="../../assets/imgs/tony.png">
-                              </ion-avatar>
-                          </ion-col> -->
-                      </ion-row>
-                  </ion-grid>
-              </div>
-  
-              <!-- END ===== ADD TO TEST SCROLL -->
-              <!-- END ===== ADD TO TEST SCROLL -->
-              <!-- END ===== ADD TO TEST SCROLL -->
-              <!-- END ===== ADD TO TEST SCROLL -->
-              <!-- END ===== ADD TO TEST SCROLL -->
-              <!-- END ===== ADD TO TEST SCROLL -->
-
-
-
-
-      </div>
-
-  </div>
+    </div>
 
 </ion-content>
 
 
 
 <ion-footer no-border height="">
-  <ion-toolbar class="toolbar-footer">
-      <ion-buttons left>
-          <button (click)="doCamera()" ion-button icon-only>
-              <ion-icon name="ios-camera"></ion-icon>
-          </button>
-      </ion-buttons>
-      <ion-buttons left>
-          <button (click)="doSomthing()" ion-button icon-only>
-              <ion-icon name="ios-ionitron"></ion-icon>
-          </button>
-      </ion-buttons>
-      <div class="footer-textarea">
-          <ion-textarea (keyup.enter)="doSend()" [(ngModel)]="input" placeholder="Enter your message" name="message">BACBBAC</ion-textarea>
-      </div>
-      <ion-buttons right>
-        <button (click)="doSend()" ion-button icon-only >
-          <ion-icon name="ios-send"></ion-icon>
-        </button>
-      </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar class="toolbar-footer">
+        <ion-buttons left>
+            <button (click)="doCamera()" ion-button icon-only>
+                <ion-icon name="ios-camera"></ion-icon>
+            </button>
+        </ion-buttons>
+        <ion-buttons left>
+            <button (click)="doSomthing()" ion-button icon-only>
+                <ion-icon name="ios-ionitron"></ion-icon>
+            </button>
+        </ion-buttons>
+        <div class="footer-textarea">
+            <ion-textarea (keyup.enter)="sendMessage()" [(ngModel)]="input" placeholder="Enter your message" name="message"></ion-textarea>
+        </div>
+        <ion-buttons right>
+            <button (click)="sendMessage()" ion-button icon-only>
+                <ion-icon name="ios-send"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-footer>

@@ -1,0 +1,50 @@
+<ion-content padding>
+  <div>
+    <ion-img class="logo m-auto" src="assets/imgs/NLPige2.png"></ion-img>
+  </div>
+  <form [formGroup]="inforForm" (submit)="next()">
+    <ion-list>
+      <!-- email -->
+      <ion-item>
+        <ion-label fixed>Email</ion-label>
+        <ion-input disabled type="email" [value]="email"></ion-input>
+      </ion-item>
+      <!-- number phone -->
+      <ion-item>
+        <ion-label fixed>F.Name</ion-label>
+        <ion-input formControlName="formfname" name="ifname" [(ngModel)]="infor.fname" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed class="fixedLabel">L.Name</ion-label>
+        <ion-input formControlName="formlname" name="ilname" [(ngModel)]="infor.lname" type="text"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label fixed>Phone</ion-label>
+        <ion-input formControlName="formphone" name="iphone" [(ngModel)]="infor.phone" type="tel"></ion-input>
+      </ion-item>
+
+      <!-- gender -->
+      <ion-item>
+        <!-- <ion-icon name="ios-transgender"></ion-icon> -->
+        <ion-label fixed>Gender</ion-label>
+        <ion-select formControlName="formgender" name="igender" [(ngModel)]="infor.gender">
+          <ion-option value="female">Female</ion-option>
+          <ion-option value="male">Male</ion-option>
+        </ion-select>
+      </ion-item>
+
+      <!-- birthday -->
+      <ion-item>
+        <!-- <ion-icon name="ios-calendar"></ion-icon> -->
+        <ion-label fixed>Birthday</ion-label>
+        <ion-datetime formControlName="formbirthday" displayFormat="MMM DD, YYYY" name="ibirthday" [(ngModel)]="infor.birthday"></ion-datetime>
+      </ion-item>
+
+    </ion-list>
+
+    <button [disabled]="!inforForm.valid" type="submit" ion-button color="nlpige" outline>
+      Next
+    </button>
+  </form>
+
+</ion-content>

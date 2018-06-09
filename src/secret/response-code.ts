@@ -3,6 +3,6 @@ export class ResponseCode {
     public static readonly CREATED = 201;
     public static readonly CONFLICT = 409;
     public static readonly NOT_ACCEPTABLE = 406;
-    public static readonly NOT_MODIFIED = 304;
+    public static readonly NOT_FOUND = 404;
     public static readonly UNAUTHORIZED = 401;
 }

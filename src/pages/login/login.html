@@ -23,6 +23,9 @@
 
   <div [ngSwitch]="opt">
     <form [formGroup]="signinForm" (submit)="doLogin()" *ngSwitchCase="'signin'">
+      <div padding text-center color="danger" class="error">
+        {{signinMessage}}
+      </div>
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input formControlName="signinEmail" type="email" name="email" [(ngModel)]="signinUser.email"></ion-input>
@@ -41,6 +44,9 @@
     </form>
 
     <form [formGroup]="signupForm" (submit)="doSignup()" *ngSwitchCase="'signup'">
+        <div padding text-center class="error">
+            {{signupMessage}}
+          </div>
       <ion-item>
         <ion-label floating>Email</ion-label>
         <ion-input formControlName="signupEmail" type="email" name="remail" [(ngModel)]="signupUser.email"></ion-input>
@@ -54,7 +60,7 @@
         <ion-input formControlName="signupRepassword" type="password" name="rrepassword" [(ngModel)]="signupUser.repassword"></ion-input>
       </ion-item>
       <div padding>
-        <ion-checkbox formControlName="signupChecked" [(checked)] = "signupUser.checked" [(ngModel)]="signupUser.checked"></ion-checkbox>
+        <ion-checkbox formControlName="signupChecked" [(checked)]="signupUser.checked" [(ngModel)]="signupUser.checked"></ion-checkbox>
         <label class="app-color text-small">I accept the terms in the License Agreement</label>
       </div>
       <div padding text-center>

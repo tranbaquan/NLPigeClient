@@ -50,7 +50,7 @@ page-home {
         background-color: rgba($color: #fff, $alpha: 1);
         ion-list {
             text-align: center;
-            ion-item-sliding {
+            ion-item {
                 width: 95%;
                 box-shadow: 1px 1px 5px rgba($color: #00bcd4, $alpha: 1);
                 margin: 10px auto 0;
@@ -71,20 +71,7 @@ page-home {
                         font-weight: 400;
                     }
                 }
-
-
-                ion-item-options {
-                    
-                    .button-md,
-                    .button-ios {
-                        width: 70px;
-                        background-color: #00bcd4;
-                    }
-                }
             }
         }
     }
-    .list-md ion-item-options {
-        border-bottom: 1px solid #dedede;
-      }
 }

@@ -1,35 +1,28 @@
 <ion-header>
   <ion-navbar class="nav">
     <ion-title>My Friends</ion-title>
-    <ion-buttons end>
+    <!-- <ion-buttons end>
       <button ion-button icon-only solid>
         <ion-icon name="ios-create-outline"></ion-icon>
       </button>
-    </ion-buttons>
+    </ion-buttons> -->
   </ion-navbar>
 </ion-header>
 
 <ion-content padding-top class="background">
+  <ion-fab right bottom>
+    <button ion-fab color="nlpige">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
   <ion-list>
-    <!-->*ngFor="let friend of friends" -->
-    <ion-item-sliding #sliding *ngFor="let friend of friends">
-      <ion-item (click)="goToChatRoom(friend)">
+    <ion-item *ngFor="let friend of friends" (click)="goToChatRoom(friend)">
         <ion-avatar item-start>
-          <ion-img width="50" height="50" src="..."></ion-img>
+          <ion-img width="50" height="50" [src]="friend.userInformation.avatar"></ion-img>
         </ion-avatar>
         <h2>
-          {{friend.name}}
+          {{friend.userInformation.lastName}} {{friend.userInformation.firstName}}
         </h2>
-      </ion-item>
-
-      <ion-item-options side="right">
-        <button ion-button (click)="goToProfileFriend(friend)">
-          <ion-icon name="person"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-
+    </ion-item>
   </ion-list>
-  <button ion-button (click)="addFriend()">ADD Friend
-  </button>
 </ion-content>
